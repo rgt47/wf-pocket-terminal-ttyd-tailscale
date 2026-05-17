@@ -1,6 +1,5 @@
 ---
 title: 'A pocket terminal for your Linux laptop with ttyd and Tailscale'
-subtitle: 'Browser-based access to a home machine from an iPhone, without SSH or open ports'
 author: "Ronald 'Ryy' G. Thomas"
 date: '2026-04-15'
 categories: [linux, shell]
@@ -80,7 +79,7 @@ CONTACT & METADATA
 HERO IMAGE
 ============================================================================ -->
 
-![A phone displaying a terminal window connected to a laptop over a private network, illustrating remote shell access from a mobile device.](media/images/hero.png){.img-fluid width=80%}
+![A phone displaying a terminal window connected to a laptop over a private network, illustrating remote shell access from a mobile device.](media/images/hero.png){.img-fluid width=80% fig-align="center"}
 
 *A browser-based interface to a persistent shell, reachable over an authenticated private network, provides a workable mobile surface for observing and intervening in long-running tasks.*
 
