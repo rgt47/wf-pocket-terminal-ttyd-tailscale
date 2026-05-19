@@ -92,9 +92,23 @@ The ergonomics of operating an SSH client on a mobile device become apparent onl
 
 Two components, used together, reduce this overhead substantially. The first, `ttyd`, is a small C daemon that serves a terminal emulator over HTTP using the xterm.js JavaScript library; any standards-compliant browser becomes a client without additional software. The second, Tailscale, builds a peer-to-peer WireGuard mesh between enrolled devices and provides an authenticated overlay network, so that the `ttyd` listener is addressable only by devices already admitted to the private tailnet rather than by arbitrary hosts on the public internet. The combination yields a single URL that is reachable from an enrolled phone, is invisible to every other network the laptop is attached to, and resumes a persistent tmux session on each visit.
 
-This post documents the configuration end to end. It covers the installation of `ttyd`, Tailscale, and tmux on an Ubuntu 24.04 laptop; the binding of the `ttyd` listener to the Tailscale network interface; the wrapping of the service in a per-user systemd unit that survives logout and reboot; the client-side configuration on iOS; and optional hardening with a TLS certificate issued by `tailscale cert`. Appendices cover a sample work session and the full teardown procedure. Corrections and alternative approaches are welcome.
+We document the configuration end to end. The coverage includes
+installation of `ttyd`, Tailscale, and tmux on an Ubuntu 24.04
+laptop; binding of the `ttyd` listener to the Tailscale network
+interface; wrapping of the service in a per-user systemd unit that
+survives logout and reboot; client-side configuration on iOS; and
+optional hardening with a TLS certificate issued by `tailscale cert`.
+Appendices cover a sample work session and the full teardown
+procedure. Corrections and alternative approaches are welcome.
 
-More formally, this post documents an entry point to the Remote Access concern of the Workflow Construct described in [post 52](/posts/52-workflow-construct/). Tailscale plus `ttyd` is one specific solution to the cross-machine, cross-network reachability problem; the broader Remote Access family also includes `mosh` for high-latency-link resilience and standard SSH for the unauthenticated-network case. This post is the browser-shell-on-mobile leaf of that family.
+More formally, we document here an entry point to the Remote Access
+concern of the Workflow Construct described in
+[post 52](/posts/52-workflow-construct/). Tailscale plus `ttyd` is
+one specific solution to the cross-machine, cross-network
+reachability problem; the broader Remote Access family also includes
+`mosh` for high-latency-link resilience and standard SSH for the
+unauthenticated-network case. The present post is the
+browser-shell-on-mobile leaf of that family.
 
 ## Motivations
 
@@ -197,7 +211,7 @@ sudo tailscale up
 The `tailscale up` command prints an authentication URL. Open it in any browser, sign in, and confirm the device appears in the tailnet.
 
 ::: {.callout-note}
-If your distribution ships a `ttyd` older than 1.7, install a prebuilt binary from the [ttyd releases page](https://github.com/tsl0922/ttyd/releases) instead. Earlier versions lack the `-i` interface-binding flag used below.
+If the distribution ships a `ttyd` older than 1.7, install a prebuilt binary from the [ttyd releases page](https://github.com/tsl0922/ttyd/releases) instead. Earlier versions lack the `-i` interface-binding flag used below.
 :::
 
 Confirm the installs succeeded:
@@ -443,12 +457,19 @@ A terminal served over HTTP and reached through a private WireGuard mesh constit
 
 The principal design insight is that a browser is an adequate terminal client when the transport-layer authentication and confidentiality problems are delegated to a component engineered specifically for that purpose. Once Tailscale and `ttyd` are in place, the same configuration generalises to a cloud-hosted VPS: only the server endpoint changes, and the tailnet membership, the `ttyd` invocation, and the client-side procedure are invariant.
 
-**Principal conclusions:**
-
-- The single most consequential line in the configuration is `-i tailscale0` on the `ttyd` invocation. This binding decision is what removes the service from every non-tailnet interface and makes the rest of the security model meaningful.
-- A per-user systemd unit combined with `loginctl enable-linger` provides a logout-safe and reboot-safe service without any system-level privileges beyond the initial `linger` enablement.
-- The `tmux new -A -s main` argument inside the `ExecStart` directive is the mechanism that transforms an ephemeral browser tab into a durable working session.
-- The Safari **Add to Home Screen** action yields a standalone web-application presentation that recovers enough screen area to make the terminal practically usable on phone-scale displays.
+In conclusion, four points merit emphasis. First, the single most
+consequential line in the configuration is `-i tailscale0` on the
+`ttyd` invocation: that binding decision removes the service from
+every non-tailnet interface and makes the rest of the security model
+meaningful. Second, a per-user systemd unit combined with
+`loginctl enable-linger` provides a logout-safe and reboot-safe
+service without any system-level privileges beyond the initial
+`linger` enablement. Third, the `tmux new -A -s main` argument
+inside the `ExecStart` directive is the mechanism that transforms
+an ephemeral browser tab into a durable working session. Fourth,
+the Safari 'Add to Home Screen' action yields a standalone
+web-application presentation that recovers enough screen area to
+make the terminal practically usable on phone-scale displays.
 
 # See Also
 
@@ -648,10 +669,15 @@ If the laptop is being decommissioned rather than just retired from this workflo
 
 Feedback is particularly useful on the following topics:
 
-- Corrections or improvements to any of the configuration or the associated reasoning.
-- Client-side experience on platforms other than iOS (Android, Chrome OS, iPadOS tablet use).
-- Extensions of the pattern, for example Tailscale Serve, Tailscale Funnel, mutual TLS, or certificate-based client authentication, and the operational trade-offs encountered.
-- Reports of deployments of this configuration on a cloud VPS rather than on a mobile laptop.
+- Corrections or improvements to any of the configuration or the
+  associated reasoning.
+- Client-side experience on platforms other than iOS (Android,
+  Chrome OS, iPadOS tablet use).
+- Extensions of the pattern, for example Tailscale Serve, Tailscale
+  Funnel, mutual TLS, or certificate-based client authentication,
+  and the operational trade-offs encountered.
+- Reports of deployments of this configuration on a cloud VPS rather
+  than on a mobile laptop.
 
 ---
 
