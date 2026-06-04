@@ -6,7 +6,7 @@ categories: [linux, shell]
 description: 'A reproducible configuration for browser-based terminal access to a Linux laptop from a mobile device, using ttyd for the terminal emulation layer and Tailscale for authenticated network transport, with no public-internet exposure.'
 image: 'media/images/hero.png'
 document-type: 'blog'
-draft: false
+draft: true
 execute:
   echo: true
   warning: false
@@ -33,7 +33,7 @@ YAML FRONT MATTER (lines 1-20)
   [x] categories      — setup, ttyd, tailscale, linux
   [x] description     — 1-2 sentences for blog listing card
   [ ] image           — media/images/hero.png (to be supplied)
-  [ ] draft: false    — flip when ready
+  [ ] draft: true    — flip when ready
 
 NARRATIVE INPUTS
   [x] Hook sentence
@@ -684,13 +684,13 @@ Feedback is particularly useful on the following topics:
 ---
 
 <!-- ============================================================================
-PRE-PUBLISH QA CHECKLIST: verify each item BEFORE setting draft: false
+PRE-PUBLISH QA CHECKLIST: verify each item BEFORE setting draft: true
 
 [ ] YAML
     [x] title, subtitle, date, categories, description filled in
     [ ] image present at media/images/hero.png
     [x] document-type: 'blog'
-    [ ] draft: false
+    [ ] draft: true
 
 [ ] Narrative complete (no remaining `[bracketed]` placeholders)
 
