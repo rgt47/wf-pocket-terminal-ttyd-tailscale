@@ -1,6 +1,6 @@
 ---
 title: A pocket terminal for your Linux laptop with ttyd and Tailscale
-author: Ronald 'Ryy' G. Thomas
+author: Ronald G. Thomas
 date: '2026-04-15'
 categories:
 - linux
