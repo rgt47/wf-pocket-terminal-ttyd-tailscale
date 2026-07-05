@@ -11,7 +11,7 @@ description: A reproducible configuration for browser-based terminal access to a
   for authenticated network transport, with no public-internet exposure.
 image: media/images/hero.png
 document-type: blog
-draft: false
+draft: true
 execute:
   echo: true
   warning: false
