@@ -1,16 +1,11 @@
 ---
-title: A pocket terminal for your Linux laptop with ttyd and Tailscale
+title: "A pocket terminal for your Linux laptop with ttyd and Tailscale"
 author: "Ronald G. Thomas"
-date: '2026-04-15'
-categories:
-- linux
-- shell
-- workflow-construct
-description: A reproducible configuration for browser-based terminal access to a Linux
-  laptop from a mobile device, using ttyd for the terminal emulation layer and Tailscale
-  for authenticated network transport, with no public-internet exposure.
-image: media/images/hero.png
-document-type: blog
+date: "2026-04-15"
+categories: [linux, shell, workflow-construct]
+description: "A reproducible configuration for browser-based terminal access to a Linux laptop from a mobile device, using ttyd for the terminal emulation layer and Tailscale for authenticated network transport, with no public-internet exposure."
+image: "media/images/hero.png"
+document-type: "blog"
 draft: true
 execute:
   echo: true
@@ -138,7 +133,7 @@ The scope of this post is the following set of verifiable deliverables:
 
 The configuration is presented as a reproducible reference rather than a tutorial. Each command and configuration directive is annotated with the rationale for its inclusion.
 
-![Workspace ambiance: a Linux laptop on a desk with a phone propped beside it, mirroring the same tmux session.](media/images/ambiance1.png){.img-fluid}
+![Workspace ambiance: a Linux laptop on a desk with a phone propped beside it, mirroring the same tmux session.](media/images/ambiance1.png){.img-fluid height=3.5in}
 
 # What is ttyd?
 
@@ -295,7 +290,7 @@ Restrict the unit file permissions so the basic-auth password is not world-reada
 chmod 600 ~/.config/systemd/user/ttyd.service
 ```
 
-![Editor view of the systemd unit file alongside a browser-based terminal, illustrating the configuration-to-runtime relationship.](media/images/ambiance2.png){.img-fluid}
+![Editor view of the systemd unit file alongside a browser-based terminal, illustrating the configuration-to-runtime relationship.](media/images/ambiance2.png){.img-fluid height=3.5in}
 
 # Verification
 
@@ -406,7 +401,7 @@ sudo apt remove --purge -y tailscale
 
 Remove the laptop from the tailnet via the Tailscale admin console if the device is being retired.
 
-![Workflow scene: the laptop closed on a desk while a phone shows the same tmux session mid-task, suggesting continuity without co-location.](media/images/ambiance3.png){.img-fluid}
+![Workflow scene: the laptop closed on a desk while a phone shows the same tmux session mid-task, suggesting continuity without co-location.](media/images/ambiance3.png){.img-fluid height=3.5in}
 
 # Discussion
 
