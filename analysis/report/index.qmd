@@ -1,6 +1,6 @@
 ---
 title: A pocket terminal for your Linux laptop with ttyd and Tailscale
-author: Ronald G. Thomas
+author: "Ronald G. Thomas"
 date: '2026-04-15'
 categories:
 - linux
@@ -16,10 +16,6 @@ execute:
   echo: true
   warning: false
   message: false
-format:
-  html:
-    code-fold: false
-    code-tools: false
 cluster: workflow-construct
 cluster-order: 10
 ---
