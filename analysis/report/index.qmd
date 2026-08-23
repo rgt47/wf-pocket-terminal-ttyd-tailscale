@@ -101,7 +101,7 @@ procedure. Corrections and alternative approaches are welcome.
 
 More formally, we document here an entry point to the Remote Access
 concern of the Workflow Construct described in
-[post 52](/posts/52-workflow-construct/). Tailscale plus `ttyd` is
+[A Workflow Construct for the Modern Data Scientist](../wf-construct-overview-anchor/). Tailscale plus `ttyd` is
 one specific solution to the cross-machine, cross-network
 reachability problem; the broader Remote Access family also includes
 `mosh` for high-latency-link resilience and standard SSH for the
@@ -473,7 +473,7 @@ make the terminal practically usable on phone-scale displays.
 
 **Related posts:**
 
-- [Setting up an AWS EC2 server via the CLI](../47-templatesetup/): a similar setup post for a cloud workstation that pairs naturally with the configuration here.
+- [Provisioning AWS EC2 Instances](../cln-aws-ec2-provisioning/): a similar setup post for a cloud workstation that pairs naturally with the configuration here.
 
 **Key resources:**
 
