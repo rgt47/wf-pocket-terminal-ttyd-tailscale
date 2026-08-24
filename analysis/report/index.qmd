@@ -732,7 +732,6 @@ Recommended reading order:
 3. Post 17: [Multi-Laptop macOS Bootstrap](../17-wf-multi-laptop-dotfiles-bootstrap/)
 4. Post 18: [Setting Up Git for Data Science Workflows](../18-wf-git-for-data-science/)
 5. Post 19: [Setting Up Neovim as a Data Science IDE](../19-wf-neovim-data-science-ide/)
-6. Post 20: [Extending the R-Vim Workflow with LaTeX](../20-wf-r-vim-latex-workflow/)
 7. Post 21: [Modern CLI Replacements for the Shell Layer](../21-wf-modern-cli-tools/)
 8. Post 22: [LLM-Augmented Editing for the Workflow Construct](../22-wf-claude-code-in-shell/)
 10. **Post 24: A pocket terminal with ttyd and Tailscale** (this post)
