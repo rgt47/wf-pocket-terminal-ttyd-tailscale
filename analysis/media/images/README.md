@@ -2,33 +2,30 @@
 
 ## Status (2026-08-25)
 
-No real images exist for this post at all. `hero.png` and the three
-`ambiance*.png` files are a single tiny (7460-byte) dummy asset
-repeated four times. `ambiance1.jpg`, `ambiance2.jpg`, and
-`ambiance3.jpg` are byte-identical to shared coffee placeholders
-reused elsewhere on the site, and there is no `hero.jpg` at all. All
-four slots need generation from scratch.
+No real images existed for this post at all. `hero.png` and the
+three `ambiance*.png` files were a single tiny (7460-byte) dummy
+asset repeated four times, and `ambiance1.jpg`/`ambiance2.jpg`/
+`ambiance3.jpg` were byte-identical to shared coffee placeholders
+reused elsewhere on the site.
 
-## Pending generation (2026-08-25)
+**Update (2026-08-25):** all four slots have been generated from
+scratch via the `gemini-image-generator` tool and are now real:
 
-- **Hero**: A smartphone resting screen-up on a wooden desk beside a
-  closed laptop, a thin visible cable or faint glow suggesting a
-  private connection between them, soft evening light, shallow
-  depth of field, muted blue-grey palette. Metaphor: a private,
-  always-reachable link between two devices.
-- **Ambiance 1**: A small brass padlock resting on a folded paper
-  map with a single dotted line drawn between two marked points, on
-  a dark wooden surface. Soft raking light, shallow depth of field.
+- `hero.jpg`: a smartphone resting screen-up on a wooden desk beside
+  a closed laptop, connected by a visible cable. Metaphor: a
+  private, always-reachable link between two devices.
+- `ambiance1.jpg`: a small brass padlock resting on a folded paper
+  map with a single dotted line drawn between two marked points.
   Metaphor: a private, authenticated path across a network.
-- **Ambiance 2**: A pocket-sized leather notebook lying open next to
-  a laptop, both showing the same short handwritten list,
-  suggesting mirrored, synchronized content. Soft window light,
-  shallow depth of field, warm palette.
-- **Ambiance 3**: A closed laptop on a desk in dim evening light,
-  with a smartphone glowing softly nearby showing the faint
-  reflection of text, suggesting an unattended session still
-  quietly running. Soft ambient light, shallow depth of field,
-  cool-warm contrast.
+- `ambiance2.jpg`: a pocket-sized leather notebook lying open next
+  to a laptop, both showing the same short handwritten list.
+  Metaphor: mirrored, synchronized content.
+- `ambiance3.jpg`: a closed laptop on a desk in dim evening light,
+  with a smartphone glowing softly nearby. Metaphor: an unattended
+  session still quietly running.
+
+All four processed via `magick -resize 1600x -strip -quality 85` to
+1600x873.
 
 ## Placeholder coffee images (temporary ambiance slots)
 

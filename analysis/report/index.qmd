@@ -4,7 +4,7 @@ author: "Ronald G. Thomas"
 date: "2026-04-15"
 categories: [linux, shell, workflow-construct]
 description: "A reproducible configuration for browser-based terminal access to a Linux laptop from a mobile device, using ttyd for the terminal emulation layer and Tailscale for authenticated network transport, with no public-internet exposure."
-image: "media/images/hero.png"
+image: "media/images/hero.jpg"
 document-type: "blog"
 draft: true
 execute:
@@ -28,7 +28,7 @@ YAML FRONT MATTER (lines 1-20)
   [x] date            — 2026-04-15
   [x] categories      — setup, ttyd, tailscale, linux
   [x] description     — 1-2 sentences for blog listing card
-  [ ] image           — media/images/hero.png (to be supplied)
+  [x] image           — genuine hero.jpg generated 2026-08-25
   [ ] draft: false    — flip when ready
 
 NARRATIVE INPUTS
@@ -77,7 +77,7 @@ CONTACT & METADATA
 HERO IMAGE
 ============================================================================ -->
 
-![A phone displaying a terminal window connected to a laptop over a private network, illustrating remote shell access from a mobile device.](media/images/hero.png){.img-fluid width=80% fig-align="center"}
+![A smartphone resting screen-up on a wooden desk beside a closed laptop, connected by a visible cable, suggesting a private link between the two devices.](media/images/hero.jpg){.img-fluid width=80% fig-align="center"}
 
 *A browser-based interface to a persistent shell, reachable over an authenticated private network, provides a workable mobile surface for observing and intervening in long-running tasks.*
 
@@ -133,7 +133,7 @@ The scope of this post is the following set of verifiable deliverables:
 
 The configuration is presented as a reproducible reference rather than a tutorial. Each command and configuration directive is annotated with the rationale for its inclusion.
 
-![Workspace ambiance: a Linux laptop on a desk with a phone propped beside it, mirroring the same tmux session.](media/images/ambiance1.png){.img-fluid height=3.5in}
+![A small brass padlock resting on a folded paper map with a single dotted line drawn between two marked points.](media/images/ambiance1.jpg){.img-fluid height=3.5in}
 
 # What is ttyd?
 
@@ -290,7 +290,7 @@ Restrict the unit file permissions so the basic-auth password is not world-reada
 chmod 600 ~/.config/systemd/user/ttyd.service
 ```
 
-![Editor view of the systemd unit file alongside a browser-based terminal, illustrating the configuration-to-runtime relationship.](media/images/ambiance2.png){.img-fluid height=3.5in}
+![A pocket-sized leather notebook lying open next to a laptop, both showing the same short handwritten list, suggesting mirrored, synchronized content.](media/images/ambiance2.jpg){.img-fluid height=3.5in}
 
 # Verification
 
@@ -401,7 +401,7 @@ sudo apt remove --purge -y tailscale
 
 Remove the laptop from the tailnet via the Tailscale admin console if the device is being retired.
 
-![Workflow scene: the laptop closed on a desk while a phone shows the same tmux session mid-task, suggesting continuity without co-location.](media/images/ambiance3.png){.img-fluid height=3.5in}
+![A closed laptop on a desk in dim evening light, with a smartphone glowing softly nearby, suggesting an unattended session still quietly running.](media/images/ambiance3.jpg){.img-fluid height=3.5in}
 
 # Discussion
 
@@ -700,10 +700,10 @@ PRE-PUBLISH QA CHECKLIST: verify each item BEFORE setting draft: false
     [x] At least 5 gotchas listed
     [x] Each gotcha has both a symptom AND a fix
 
-[ ] Visual design
-    [ ] 1 hero image (width=80%)
-    [ ] 3 ambiance images (width=100%)
-    [ ] media/images/README.md attributes every image
+[x] Visual design
+    [x] 1 hero image (width=80%) — genuine, generated 2026-08-25
+    [x] 3 ambiance images (width=100%) — all genuine, generated 2026-08-25
+    [x] media/images/README.md attributes every image
 
 [ ] Content quality
     [x] Zero emoji
