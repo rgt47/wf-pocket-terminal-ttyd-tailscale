@@ -118,7 +118,7 @@ The configuration described here was motivated by the following requirements, ea
 - Avoidance of identity-file management and modifier-key entry on a small touchscreen, which are the two principal ergonomic costs of native SSH clients on iOS.
 - Elimination of any public-internet exposure on the laptop. Opening inbound port 22 through a home router, combined with dynamic DNS, would grant global addressability to a device that regularly attaches to untrusted networks; this is an unacceptable risk profile for a personal workstation.
 - Network-location independence. A single stable URL should be usable from the home network, the institutional network, and a cellular carrier's network without client-side reconfiguration.
-- Generalisation to future deployments. The component choices (a WireGuard-based overlay, an HTTP-native terminal, a per-user systemd unit) transfer cleanly to a cloud-hosted VPS workstation, which was identified as a plausible next step.
+- Generalization to future deployments. The component choices (a WireGuard-based overlay, an HTTP-native terminal, a per-user systemd unit) transfer cleanly to a cloud-hosted VPS workstation, which was identified as a plausible next step.
 
 ## Objectives
 
@@ -169,11 +169,11 @@ Three layered controls address these threats:
 
 - **Network-layer authentication (Tailscale).** Only devices that have completed the OAuth-style authentication flow with the tailnet's coordination server and received a signed node key can establish WireGuard sessions with the laptop. This eliminates threats (a) and (b): the `ttyd` port is not even visible to hosts outside the tailnet. An attacker on a shared SSID sees only the encrypted WireGuard packets, which are indistinguishable from other UDP traffic.
 
-- **Interface binding (`ttyd -i tailscale0`).** The listener is bound to the Tailscale virtual interface rather than to `0.0.0.0`. If the tailnet were somehow compromised at the coordination-server level, or if Tailscale itself were misconfigured to route traffic from unexpected sources into `tailscale0`, the service would still be unreachable from the physical interfaces. This is a defence-in-depth control.
+- **Interface binding (`ttyd -i tailscale0`).** The listener is bound to the Tailscale virtual interface rather than to `0.0.0.0`. If the tailnet were somehow compromised at the coordination-server level, or if Tailscale itself were misconfigured to route traffic from unexpected sources into `tailscale0`, the service would still be unreachable from the physical interfaces. This is a defense-in-depth control.
 
 - **Application-layer authentication (HTTP basic auth).** A username and password are required to open a WebSocket, providing a final barrier against threat (c): an attacker who has compromised one tailnet device cannot open a shell on the laptop without also possessing the `ttyd` credentials. Basic authentication is not a strong control in isolation (the credentials are sent on every request and are visible in `ps` output on the host), but it is appropriate as the innermost layer of a multi-layer model.
 
-Threat (d) is out of scope: an attacker with the basic-auth password but no tailnet credentials has no routable path to the service. This is the intended shape of the model: Tailscale provides confidentiality and network-layer authentication; basic authentication provides an independent defence against compromised tailnet peers; the interface binding ensures that neither of the other two controls is single-point-of-failure.
+Threat (d) is out of scope: an attacker with the basic-auth password but no tailnet credentials has no routable path to the service. This is the intended shape of the model: Tailscale provides confidentiality and network-layer authentication; basic authentication provides an independent defense against compromised tailnet peers; the interface binding ensures that neither of the other two controls is single-point-of-failure.
 
 Appendix A describes an optional additional layer (TLS via `tailscale cert`) that closes the remaining residual risk of plaintext credentials on the wire between `ttyd` and the `tailscale0` interface, at a modest operational cost.
 
@@ -243,7 +243,7 @@ Rationale for each flag:
 - `-W` enables write input on the pty. Without this flag the browser session is read-only, which is not useful for the interactive work that motivates the configuration.
 - `-p 7681` specifies the TCP listening port. Any unused port is acceptable; 7681 is the `ttyd` project default and is used here for consistency with upstream documentation.
 - `-i tailscale0` binds the listener exclusively to the Tailscale virtual interface. The service is therefore unreachable from physical wired, wireless, or cellular interfaces of the laptop, regardless of which network the laptop is attached to at any given moment. The interface name should be confirmed with `ip -br link`, as it is nominally fixed but may differ on non-default configurations.
-- `-c user:password` enables HTTP basic authentication. The credentials are an application-layer defence-in-depth measure; the primary access control is the Tailscale interface binding, and the basic-auth credentials are an independent safeguard against the scenario in which a tailnet peer is itself compromised.
+- `-c user:password` enables HTTP basic authentication. The credentials are an application-layer defense-in-depth measure; the primary access control is the Tailscale interface binding, and the basic-auth credentials are an independent safeguard against the scenario in which a tailnet peer is itself compromised.
 - `tmux new -A -s main` invokes tmux in a mode that creates the session if it does not exist and attaches to it otherwise. This form is idempotent, which is essential inside a systemd `ExecStart` directive. It also ensures that every browser connection attaches to the same session, so that shell state persists across client disconnections.
 
 ### The systemd user unit
@@ -342,7 +342,7 @@ Adding the URL to the iPhone home screen via Safari's **Share > Add to Home Scre
 <!-- TEMPLATE INSTRUCTION: Scannable command table, the most-bookmarked
 element of a setup post. -->
 
-The table below summarises the commands and gestures that are most frequently required during routine use:
+The table below summarizes the commands and gestures that are most frequently required during routine use:
 
 | Command or gesture                         | Action                                 |
 |--------------------------------------------|----------------------------------------|
@@ -366,7 +366,7 @@ The following issues arise sufficiently often during initial deployment and rout
 
 1. **Incorrect interface binding.** If `ss -ltnp` shows `0.0.0.0:7681` rather than the tailnet address, the `-i tailscale0` directive has not taken effect. The interface name should be confirmed with `ip -br link`, as it may differ on systems with non-default Tailscale installations or with systemd-networkd renaming. The service should not be left running until the binding has been verified to be correct, because a listener on `0.0.0.0` is reachable from every network the laptop attaches to.
 
-2. **Lid-close suspension.** A laptop whose power-management policy suspends the system on lid closure is not reachable over the network while suspended. The remediation is one of: physically maintain an open lid; modify the desktop environment's lid-close behaviour to 'do nothing'; or, for transient tasks, wrap the command with `systemd-inhibit --what=sleep` to prevent suspension for the duration of the inhibition.
+2. **Lid-close suspension.** A laptop whose power-management policy suspends the system on lid closure is not reachable over the network while suspended. The remediation is one of: physically maintain an open lid; modify the desktop environment's lid-close behavior to 'do nothing'; or, for transient tasks, wrap the command with `systemd-inhibit --what=sleep` to prevent suspension for the duration of the inhibition.
 
 3. **Loss of session persistence.** If closing the browser terminates the shell, the `ExecStart` directive is launching a bare shell directly rather than attaching to a tmux session. Only the `tmux new -A -s main` form, with tmux as the terminal's attached process, delivers persistence across client disconnections.
 
@@ -376,7 +376,7 @@ The following issues arise sufficiently often during initial deployment and rout
 
 6. **MagicDNS resolution failures.** Tailnet hostnames must include the full tailnet suffix (for example, `laptop.tailnet-name.ts.net`). A bare hostname resolves only if MagicDNS is enabled in the Tailscale admin console and if the client has accepted the DNS configuration pushed by the Tailscale daemon; clients that predate the MagicDNS enablement may require a Tailscale toggle cycle to refresh.
 
-7. **iOS input autocorrection.** Safari on iOS auto-capitalises the first character entered into a text field by default, which can corrupt the first character of a password or a command. The appropriate remediations are to disable auto-capitalisation under **Settings > General > Keyboard**, or to use a Bluetooth keyboard, which is not subject to the on-screen keyboard's input transformations.
+7. **iOS input autocorrection.** Safari on iOS auto-capitalizes the first character entered into a text field by default, which can corrupt the first character of a password or a command. The appropriate remediations are to disable auto-capitalization under **Settings > General > Keyboard**, or to use a Bluetooth keyboard, which is not subject to the on-screen keyboard's input transformations.
 
 # Uninstall / Rollback
 
@@ -434,7 +434,7 @@ The configuration has several explicit constraints that should be understood at 
 
 - **Single-user scope.** The unit file and basic-authentication credentials are per-user. Multi-user access requires either parallel service instances on distinct ports or a front-end reverse proxy that demultiplexes on authenticated identity.
 - **Absence of audit logging.** `ttyd` does not log the commands executed within the pty. Where accountability or forensic capability is required, a separate shell-level or system-level auditing facility (for example, `auditd` with appropriate rules) must be configured.
-- **Input ergonomics on a phone-scale device.** Even with a Bluetooth keyboard and the small-screen optimisations, extended authorship of new code on a handheld device remains slower than on a conventional workstation. The configuration is well suited to monitoring, intervention, and short modifications; it is not a substitute for a primary development environment.
+- **Input ergonomics on a phone-scale device.** Even with a Bluetooth keyboard and the small-screen optimizations, extended authorship of new code on a handheld device remains slower than on a conventional workstation. The configuration is well suited to monitoring, intervention, and short modifications; it is not a substitute for a primary development environment.
 - **Dependence on Tailscale infrastructure.** New connections require reachability to the Tailscale coordination server for key exchange and peer discovery. Existing WireGuard sessions are unaffected by a coordination-server outage, but reconnection after a client restart requires coordination-server availability.
 - **Absence of session recording.** The configuration does not record session input or output. Tools such as `asciinema`, `tmux-logging`, or `script(1)` can be added if session provenance is required.
 
@@ -446,14 +446,14 @@ Several extensions would strengthen the configuration without departing from its
 2. Replace HTTP basic authentication with Tailscale Serve or Tailscale Funnel, both of which delegate authentication to the tailnet identity of the client. This removes the need for a shared password and eliminates the associated secret-management burden.
 3. Deploy the same configuration on an always-on VPS reached through Tailscale. The benefit is session durability across laptop sleep or shutdown; the cost is the VPS itself and the slightly more involved administrative story.
 4. Instantiate a second, read-only `ttyd` on a distinct port that runs a scoped command such as `htop` or a log-tailing command. This provides an observation-only surface suitable for short status checks without opening the full shell.
-5. Curate a phone-optimised tmux configuration (`tmux.conf.phone`) with shortened status-bar labels and fewer segments, and load it conditionally when `ttyd` detects a small-screen client.
+5. Curate a phone-optimized tmux configuration (`tmux.conf.phone`) with shortened status-bar labels and fewer segments, and load it conditionally when `ttyd` detects a small-screen client.
 6. Encapsulate the installation in an idempotent shell script under `analysis/configs/`, suitable for provisioning identical configurations on additional machines.
 
 # Conclusion
 
 A terminal served over HTTP and reached through a private WireGuard mesh constitutes a workable mobile surface for a laptop that may be closed, stationed in another room, or physically distant from the operator. The marginal cost is modest: three package installations, a single systemd user unit, and an initial configuration effort of approximately thirty minutes. The benefit is that long-running work on the laptop, including interactive agentic coding sessions that may run for several hours, remains observable and steerable without any exposure of the laptop to the public internet, without dynamic DNS infrastructure, and without reliance on a native SSH client on the mobile device.
 
-The principal design insight is that a browser is an adequate terminal client when the transport-layer authentication and confidentiality problems are delegated to a component engineered specifically for that purpose. Once Tailscale and `ttyd` are in place, the same configuration generalises to a cloud-hosted VPS: only the server endpoint changes, and the tailnet membership, the `ttyd` invocation, and the client-side procedure are invariant.
+The principal design insight is that a browser is an adequate terminal client when the transport-layer authentication and confidentiality problems are delegated to a component engineered specifically for that purpose. Once Tailscale and `ttyd` are in place, the same configuration generalizes to a cloud-hosted VPS: only the server endpoint changes, and the tailnet membership, the `ttyd` invocation, and the client-side procedure are invariant.
 
 In conclusion, four points merit emphasis. First, the single most
 consequential line in the configuration is `-i tailscale0` on the
@@ -488,7 +488,7 @@ make the terminal practically usable on phone-scale displays.
 
 # Extended Glossary
 
-The following terms appear throughout the post. Definitions are compact and operational, prioritising the usage relevant to this configuration over full generality.
+The following terms appear throughout the post. Definitions are compact and operational, prioritizing the usage relevant to this configuration over full generality.
 
 **ACL (access control list).** In Tailscale, a declarative policy document that restricts which tailnet members may reach which services on which ports. Default policy is permissive; explicit ACLs tighten the model.
 
@@ -498,13 +498,13 @@ The following terms appear throughout the post. Definitions are compact and oper
 
 **DERP (Designated Encrypted Relay for Packets).** Tailscale-operated relay servers used when two peers cannot establish a direct WireGuard connection due to symmetric or restrictive NAT. Traffic through a DERP relay remains end-to-end encrypted; the relay cannot read it.
 
-**Dynamic DNS.** A service that updates a DNS A or AAAA record in response to changes in an endpoint's public IP address. Historically used for home-hosted services but requires an open public port on the host. This configuration deliberately avoids it in favour of MagicDNS over Tailscale.
+**Dynamic DNS.** A service that updates a DNS A or AAAA record in response to changes in an endpoint's public IP address. Historically used for home-hosted services but requires an open public port on the host. This configuration deliberately avoids it in favor of MagicDNS over Tailscale.
 
 **ExecStart.** A systemd unit directive that specifies the command line to run when the service is started. Must be an absolute path with no shell interpretation; metacharacters are passed literally to the process.
 
 **HTTP.** The Hypertext Transfer Protocol, as used here in its unencrypted form over a Tailscale-encrypted transport. The `ttyd` listener speaks HTTP, and the security model delegates confidentiality to the WireGuard layer below it.
 
-**HTTPS.** HTTP over TLS. In this configuration, HTTPS is optional (Appendix A) because the transport is already authenticated and encrypted by Tailscale; adding HTTPS provides defence in depth against an accidental mis-binding of the listener.
+**HTTPS.** HTTP over TLS. In this configuration, HTTPS is optional (Appendix A) because the transport is already authenticated and encrypted by Tailscale; adding HTTPS provides defense in depth against an accidental mis-binding of the listener.
 
 **Interface binding.** The act of restricting a listening socket to accept connections only on a named network interface, typically by specifying an interface name or an IP address belonging to that interface. Here, `ttyd -i tailscale0` binds the listener to the Tailscale virtual interface.
 
