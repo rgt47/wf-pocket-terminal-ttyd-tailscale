@@ -92,10 +92,11 @@ Two components, used together, reduce this overhead substantially. The first, `t
 
 We document the configuration end to end. The coverage includes
 installation of `ttyd`, Tailscale, and tmux on an Ubuntu 24.04
-laptop; binding of the `ttyd` listener to the Tailscale network
-interface; wrapping of the service in a per-user systemd unit that
-survives logout and reboot; client-side configuration on iOS; and
-optional hardening with a TLS certificate issued by `tailscale cert`.
+laptop, binding of the `ttyd` listener to the Tailscale network
+interface, and wrapping of the service in a per-user systemd unit
+that survives logout and reboot. It also covers client-side
+configuration on iOS and optional hardening with a TLS certificate
+issued by `tailscale cert`.
 Appendices cover a sample work session and the full teardown
 procedure. Corrections and alternative approaches are welcome.
 
@@ -163,7 +164,7 @@ The request path for a single keystroke therefore traverses: browser on phone, i
 
 <!-- TEMPLATE INSTRUCTION: State the threat model and the controls. -->
 
-The configuration is designed to withstand the following threats, in approximate order of likelihood: (a) an attacker scanning the public IP addresses of the laptop's current network for open ports, (b) an attacker on the same Layer-2 network as the laptop (for example, a shared coffee-shop SSID) attempting to observe or connect to local services, (c) an attacker who compromises a single device on the tailnet and attempts to move laterally, and (d) an attacker with access to the basic-authentication password but not to the tailnet.
+The configuration is designed to withstand four threats, listed here in approximate order of likelihood: (a) an attacker scanning the public IP addresses of the laptop's current network for open ports, and (b) an attacker on the same Layer-2 network as the laptop (for example, a shared coffee-shop SSID) attempting to observe or connect to local services. The remaining two are (c) an attacker who compromises a single device on the tailnet and attempts to move laterally, and (d) an attacker with access to the basic-authentication password but not to the tailnet.
 
 Three layered controls address these threats:
 
