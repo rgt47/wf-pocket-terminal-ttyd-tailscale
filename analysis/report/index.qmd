@@ -6,7 +6,7 @@ categories: [linux, shell, workflow-construct]
 description: "A reproducible configuration for browser-based terminal access to a Linux laptop from a mobile device, using ttyd for the terminal emulation layer and Tailscale for authenticated network transport, with no public-internet exposure."
 image: "media/images/hero.jpg"
 document-type: "blog"
-draft: true
+draft: false
 execute:
   echo: true
   warning: false
