@@ -83,8 +83,9 @@ HERO IMAGE
 
 # Introduction
 
-<!-- TEMPLATE INSTRUCTION: 'I did not really appreciate X until Y'. Peer, not
-teacher. Three short paragraphs. -->
+<!-- TEMPLATE INSTRUCTION: open with the substantive finding, stated
+directly; no personal-revelation hook. Peer, not teacher. Three short
+paragraphs. -->
 
 The ergonomics of operating an SSH client on a mobile device become apparent only when the task is non-trivial. Identity-file selection, modifier-key entry on a soft keyboard, reliable reconnection after the device sleeps, and the rendering of a monospace font at phone or tablet scale each impose non-negligible overhead. In practice these frictions accumulate to the point where many users defer routine oversight work until they regain physical access to the host machine. The resulting delay is not merely inconvenient; it creates an asymmetry between the pace at which background work progresses and the pace at which an operator can respond to it.
 
